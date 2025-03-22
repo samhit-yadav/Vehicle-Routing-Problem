@@ -267,74 +267,7 @@ print(f"Distance Savings: {distance_savings} km ({percent_savings:.2f}%)")
 print(f"Number of Routes: {len(final_routes)}")
 
 
-import networkx as nx
-import matplotlib.pyplot as plt
 
-# Define optimized routes as lists of pickup points
-optimized_routes = {
-    1: [0, 25, 3, 2, 1, 20, 18, 19, 21, 0],
-    2: [0, 24, 23, 16, 11, 6, 8, 4, 5, 9, 10, 0],
-    3: [0, 15, 13, 7, 12, 14, 0],
-    4: [0, 26, 17, 31, 30, 32, 22, 29, 28, 33, 0],
-    5: [0, 27, 0]
-}
-
-# Initialize graph
-G = nx.Graph()
-
-# Add edges for each route
-edge_colors = []
-route_colors = ['r', 'b', 'g', 'm', 'c']  # Colors for routes
-
-for route_id, path in optimized_routes.items():
-    color = route_colors[route_id - 1]  # Assign color per route
-    for i in range(len(path) - 1):
-        G.add_edge(path[i], path[i+1], color=color)
-        edge_colors.append(color)
-
-# Draw graph
-pos = nx.spring_layout(G, seed=42)  # Positioning nodes
-edges = G.edges()
-
-# Extract colors for edges
-edge_colormap = [G[u][v]['color'] for u, v in edges]
-
-# Draw nodes and edges
-nx.draw(G, pos, node_size=600, with_labels=True, edge_color=edge_colormap, width=2)
-
-# Show plot
-plt.title("Optimized Milk Collection Routes")
-plt.show()
-
-
-
-
-import networkx as nx
-import matplotlib.pyplot as plt
-
-# Define the optimized routes
-routes_for_trucks = [
-    [0, 25, 3, 2, 1, 20, 18, 19, 21, 0],
-    [0, 24, 23, 16, 11, 6, 8, 4, 5, 9, 10, 0],
-    [0, 15, 13, 7, 12, 14, 0],
-    [0, 26, 17, 31, 30, 32, 22, 29, 28, 33, 0],
-    [0, 27, 0]
-]
-
-# Create a directed graph
-G = nx.DiGraph()
-
-# Add edges to the graph based on the routes
-for route in routes_for_trucks:
-    for i in range(len(route) - 1):
-        G.add_edge(route[i], route[i + 1])
-
-# Draw the graph
-plt.figure(figsize=(10, 6))
-pos = nx.spring_layout(G, seed=42)  # Use spring layout for better visualization
-nx.draw(G, pos, with_labels=True, node_color="lightblue", edge_color="gray", node_size=1000, font_size=10)
-plt.title("Optimized Truck Routes")
-plt.show()
 
 
 
